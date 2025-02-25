@@ -1,0 +1,61 @@
+HELP.md
+.gradle
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+!.gitignore
+
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+bin/
+!**/src/main/**/bin/
+!**/src/test/**/bin/
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+*.jar
+out/
+!**/src/main/**/out/
+!**/src/test/**/out/
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+### VS Code ###
+.vscode/
+
+### macOS template
+# General
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Gradle Wrapper 관련 파일 무시
+weaver/gradle/wrapper/gradle-wrapper.jar
+weaver/gradlew
+weaver/gradlew.bat
+
+# 빌드 결과물 무시
+weaver/build/
+weaver/out/
+weaver/.gradle/
+weaver/.idea/
+
+# idea 전부 무시
+.idea/**
+.properties
+/src/main/resources/**.yml
+/src/main/resources/**.properties
