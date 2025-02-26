@@ -31,30 +31,25 @@ public class ControllerScanner {
         String basePackage = k6WeaverConfigProperties.getBasePackage();
 
         System.out.println("Base Package: " + basePackage);
-        System.out.println("Base Url: " + k6WeaverConfigProperties.getBaseUrl());
 
         for (Object controller : restController.values()) {
             Class<?> controllerClass = controller.getClass();
             String controllerPackage = controllerClass.getPackage().getName();
-            String basePath = "";
+            String baseEndPoint = "";
 
             if (!controllerPackage.startsWith(basePackage) || controllerClass.isAnnotationPresent(K6Ignore.class)) {
                 continue;
             }
-
             System.out.println(controller.getClass().getName());
-
             if (controllerClass.isAnnotationPresent(RequestMapping.class)) {
                 RequestMapping requestMapping = controllerClass.getAnnotation(RequestMapping.class);
-                basePath = requestMapping.value()[0];
+                baseEndPoint = requestMapping.value()[0];
             }
-
             Method[] methods = controllerClass.getDeclaredMethods();
             for (Method method : methods) {
-
                 if (!method.isAnnotationPresent(K6Ignore.class) && method.isAnnotationPresent(GetMapping.class)) {
-                    String fullPath = basePath + method.getAnnotation(GetMapping.class).value()[0];
-                    endPoints.add(fullPath);
+                    String fullEndPoint = baseEndPoint + method.getAnnotation(GetMapping.class).value()[0];
+                    endPoints.add(fullEndPoint);
                 }
             }
         }

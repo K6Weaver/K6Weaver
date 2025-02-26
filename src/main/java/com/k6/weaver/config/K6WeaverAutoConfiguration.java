@@ -18,8 +18,8 @@ public class K6WeaverAutoConfiguration {
     }
 
     @Bean
-    public K6WeaverService k6WeaverService() {
-        return new K6WeaverService();
+    public K6WeaverService k6WeaverService(K6WeaverConfigProperties k6WeaverConfigProperties) {
+        return new K6WeaverService(k6WeaverConfigProperties);
     }
 
     @Bean
