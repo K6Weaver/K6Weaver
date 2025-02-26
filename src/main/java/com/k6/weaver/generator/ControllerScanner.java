@@ -1,6 +1,7 @@
 package com.k6.weaver.generator;
 
 import com.k6.weaver.config.annotation.K6Ignore;
+import com.k6.weaver.util.K6WeaverConfigProperties;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -18,14 +19,19 @@ public class ControllerScanner {
     private static final Set<String> endPoints = new HashSet<>();
     private final ApplicationContext applicationContext;
     // private final String basePackage;
+    private final K6WeaverConfigProperties k6WeaverConfigProperties;
 
-    public ControllerScanner(ApplicationContext applicationContext) {
+    public ControllerScanner(ApplicationContext applicationContext, K6WeaverConfigProperties k6WeaverConfigProperties) {
         this.applicationContext = applicationContext;
+        this.k6WeaverConfigProperties = k6WeaverConfigProperties;
     }
 
     @PostConstruct
     public void findEndPoints() {
         Map<String, Object> restController = applicationContext.getBeansWithAnnotation(RestController.class);
+
+        System.out.println("Base Package: " + k6WeaverConfigProperties.getBasePackage());
+        System.out.println("Base Url: " + k6WeaverConfigProperties.getBaseUrl());
 
         for (Object controller : restController.values()) {
             Class<?> controllerClass = controller.getClass();
