@@ -1,6 +1,7 @@
 package com.k6.weaver.generator;
 
 import com.k6.weaver.config.annotation.K6Ignore;
+import com.k6.weaver.util.K6WeaverConfigProperties;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
@@ -17,35 +18,38 @@ import java.util.Set;
 public class ControllerScanner {
     private static final Set<String> endPoints = new HashSet<>();
     private final ApplicationContext applicationContext;
-    // private final String basePackage;
+    private final K6WeaverConfigProperties k6WeaverConfigProperties;
 
-    public ControllerScanner(ApplicationContext applicationContext) {
+    public ControllerScanner(ApplicationContext applicationContext, K6WeaverConfigProperties k6WeaverConfigProperties) {
         this.applicationContext = applicationContext;
+        this.k6WeaverConfigProperties = k6WeaverConfigProperties;
     }
 
     @PostConstruct
     public void findEndPoints() {
         Map<String, Object> restController = applicationContext.getBeansWithAnnotation(RestController.class);
+        String basePackage = k6WeaverConfigProperties.getBasePackage();
+
+        System.out.println("Base Package: " + basePackage);
 
         for (Object controller : restController.values()) {
             Class<?> controllerClass = controller.getClass();
-            String basePath = "";
-            System.out.println(controller.getClass().getName());
-            if (controllerClass.isAnnotationPresent(K6Ignore.class)) {
+            String controllerPackage = controllerClass.getPackage().getName();
+            String baseEndPoint = "";
+
+            if (!controllerPackage.startsWith(basePackage) || controllerClass.isAnnotationPresent(K6Ignore.class)) {
                 continue;
             }
-
+            System.out.println(controller.getClass().getName());
             if (controllerClass.isAnnotationPresent(RequestMapping.class)) {
                 RequestMapping requestMapping = controllerClass.getAnnotation(RequestMapping.class);
-                basePath = requestMapping.value()[0];
+                baseEndPoint = endPointFormatter(requestMapping.value()[0]);
             }
-
             Method[] methods = controllerClass.getDeclaredMethods();
             for (Method method : methods) {
-
                 if (!method.isAnnotationPresent(K6Ignore.class) && method.isAnnotationPresent(GetMapping.class)) {
-                    String fullPath = basePath + method.getAnnotation(GetMapping.class).value()[0];
-                    endPoints.add(fullPath);
+                    String fullEndPoint = baseEndPoint + endPointFormatter(method.getAnnotation(GetMapping.class).value()[0]);
+                    endPoints.add(fullEndPoint);
                 }
             }
         }
@@ -53,5 +57,15 @@ public class ControllerScanner {
 
     public static Set<String> fetchEndPoints() {
         return endPoints;
+    }
+
+    private String endPointFormatter(String endPoint) {
+        if (!endPoint.startsWith("/")) {
+            endPoint = "/" + endPoint;
+        }
+        if (endPoint.endsWith("/")) {
+            endPoint = endPoint.substring(0, endPoint.length() - 1);
+        }
+        return endPoint;
     }
 }
