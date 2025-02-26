@@ -18,7 +18,6 @@ import java.util.Set;
 public class ControllerScanner {
     private static final Set<String> endPoints = new HashSet<>();
     private final ApplicationContext applicationContext;
-    // private final String basePackage;
     private final K6WeaverConfigProperties k6WeaverConfigProperties;
 
     public ControllerScanner(ApplicationContext applicationContext, K6WeaverConfigProperties k6WeaverConfigProperties) {
@@ -29,17 +28,21 @@ public class ControllerScanner {
     @PostConstruct
     public void findEndPoints() {
         Map<String, Object> restController = applicationContext.getBeansWithAnnotation(RestController.class);
+        String basePackage = k6WeaverConfigProperties.getBasePackage();
 
-        System.out.println("Base Package: " + k6WeaverConfigProperties.getBasePackage());
+        System.out.println("Base Package: " + basePackage);
         System.out.println("Base Url: " + k6WeaverConfigProperties.getBaseUrl());
 
         for (Object controller : restController.values()) {
             Class<?> controllerClass = controller.getClass();
+            String controllerPackage = controllerClass.getPackage().getName();
             String basePath = "";
-            System.out.println(controller.getClass().getName());
-            if (controllerClass.isAnnotationPresent(K6Ignore.class)) {
+
+            if (!controllerPackage.startsWith(basePackage) || controllerClass.isAnnotationPresent(K6Ignore.class)) {
                 continue;
             }
+
+            System.out.println(controller.getClass().getName());
 
             if (controllerClass.isAnnotationPresent(RequestMapping.class)) {
                 RequestMapping requestMapping = controllerClass.getAnnotation(RequestMapping.class);
