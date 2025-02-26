@@ -1,12 +1,3 @@
----
-name: Pull Request - template
-about: 해당 탬플릿을 이용해서 PR 요청 해주세요.
-title: ''
-labels: ''
-assignees: kobenlys
-
----
-
 ## #️⃣연관된 이슈
 
 > ex) #이슈번호, #이슈번호
