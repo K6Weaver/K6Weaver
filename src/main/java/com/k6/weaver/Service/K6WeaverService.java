@@ -18,6 +18,9 @@ public class K6WeaverService {
     public String createK6Script() {
         Set<String> endPointSet = ControllerScanner.fetchEndPoints();
         String baseUrl = k6WeaverConfigProperties.getBaseUrl();
+        if (baseUrl.endsWith("/")) {
+            baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
+        }
         return K6ScriptGenerator.generateScript(endPointSet, baseUrl);
     }
 }

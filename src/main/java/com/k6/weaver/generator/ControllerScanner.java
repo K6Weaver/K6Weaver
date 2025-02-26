@@ -43,12 +43,12 @@ public class ControllerScanner {
             System.out.println(controller.getClass().getName());
             if (controllerClass.isAnnotationPresent(RequestMapping.class)) {
                 RequestMapping requestMapping = controllerClass.getAnnotation(RequestMapping.class);
-                baseEndPoint = requestMapping.value()[0];
+                baseEndPoint = endPointFormatter(requestMapping.value()[0]);
             }
             Method[] methods = controllerClass.getDeclaredMethods();
             for (Method method : methods) {
                 if (!method.isAnnotationPresent(K6Ignore.class) && method.isAnnotationPresent(GetMapping.class)) {
-                    String fullEndPoint = baseEndPoint + method.getAnnotation(GetMapping.class).value()[0];
+                    String fullEndPoint = baseEndPoint + endPointFormatter(method.getAnnotation(GetMapping.class).value()[0]);
                     endPoints.add(fullEndPoint);
                 }
             }
@@ -57,5 +57,15 @@ public class ControllerScanner {
 
     public static Set<String> fetchEndPoints() {
         return endPoints;
+    }
+
+    private String endPointFormatter(String endPoint) {
+        if (!endPoint.startsWith("/")) {
+            endPoint = "/" + endPoint;
+        }
+        if (endPoint.endsWith("/")) {
+            endPoint = endPoint.substring(0, endPoint.length() - 1);
+        }
+        return endPoint;
     }
 }
