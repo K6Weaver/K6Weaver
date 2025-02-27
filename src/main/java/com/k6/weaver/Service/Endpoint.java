@@ -1,7 +1,7 @@
-package com.k6.weaver.util;
+package com.k6.weaver.Service;
 
 public class Endpoint implements Comparable<Endpoint> {
-    String url, reqMethod, packagePath;
+    private String url, reqMethod, packagePath;
 
     public Endpoint(String url, String reqMethod, String packagePath) {
         this.url = url;

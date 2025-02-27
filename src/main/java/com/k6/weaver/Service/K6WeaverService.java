@@ -2,7 +2,6 @@ package com.k6.weaver.Service;
 
 import com.k6.weaver.generator.ControllerScanner;
 import com.k6.weaver.generator.K6ScriptGenerator;
-import com.k6.weaver.util.Endpoint;
 import com.k6.weaver.util.K6WeaverConfigProperties;
 import org.springframework.stereotype.Service;
 

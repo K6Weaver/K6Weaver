@@ -1,7 +1,7 @@
 package com.k6.weaver.generator;
 
 import com.k6.weaver.config.annotation.K6Ignore;
-import com.k6.weaver.util.Endpoint;
+import com.k6.weaver.Service.Endpoint;
 import com.k6.weaver.util.K6WeaverConfigProperties;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.ApplicationContext;

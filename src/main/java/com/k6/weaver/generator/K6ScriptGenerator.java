@@ -1,6 +1,6 @@
 package com.k6.weaver.generator;
 
-import com.k6.weaver.util.Endpoint;
+import com.k6.weaver.Service.Endpoint;
 
 import java.util.List;
 
