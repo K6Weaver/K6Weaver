@@ -52,7 +52,7 @@ public class K6ScriptGenerator {
                 payloadName = "api";
             }
             endPoint.setPayloadName(payloadName);
-            k6Script.append("   let " + payloadName + "Payload = /* Body를 추가해 주세요 */ null;\n");
+            k6Script.append("   let " + payloadName + "Payload = /* write body here! */ null;\n");
         }
 
         k6Script.append("   let params = {\n" +

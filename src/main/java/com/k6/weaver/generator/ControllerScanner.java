@@ -71,7 +71,7 @@ public class ControllerScanner {
     }
 
     private EndPoint getTargetEndPoint(Method method, String baseEndPoint, String controllerPackage) {
-        // Get, Post, Put, Delete 방식에 따라 EndPoint 생성
+
         EndPoint targetEndPoint = null;
         if (method.isAnnotationPresent(GetMapping.class)) {
             targetEndPoint = generateTargetEndPoint(baseEndPoint,
