@@ -41,9 +41,15 @@ public class K6ScriptGenerator {
             if (endpoint.getReqMethod().equals("GET")) {
                 k6Script.append("    res = http.get(`${baseUrl}").append(endpoint.getUrl()).append("`);\n");
                 k6Script.append("    check(res, { 'status was 200': (r) => r.status == 200 });\n");
-            } else {
+            } else if (endpoint.getReqMethod().equals("POST")) {
                 k6Script.append("    res = http.post(`${baseUrl}").append(endpoint.getUrl()).append("`, , params);\n");
                 k6Script.append("    check(res, { 'status was 201': (r) => r.status == 201 });\n");
+            } else if (endpoint.getReqMethod().equals("PUT")) {
+                k6Script.append("    res = http.put(`${baseUrl}").append(endpoint.getUrl()).append("`, , params);\n");
+                k6Script.append("    check(res, { 'status was 201': (r) => r.status == 201 });\n");
+            } else if (endpoint.getReqMethod().equals("DELETE")) {
+                k6Script.append("    res = http.delete(`${baseUrl}").append(endpoint.getUrl()).append("`);\n");
+                k6Script.append("    check(res, { 'status was 200': (r) => r.status == 200 });\n");
             }
         }
 
