@@ -2,10 +2,11 @@ package com.k6.weaver.Service;
 
 import com.k6.weaver.generator.ControllerScanner;
 import com.k6.weaver.generator.K6ScriptGenerator;
+import com.k6.weaver.util.Endpoint;
 import com.k6.weaver.util.K6WeaverConfigProperties;
 import org.springframework.stereotype.Service;
 
-import java.util.Set;
+import java.util.List;
 
 @Service
 public class K6WeaverService {
@@ -16,7 +17,7 @@ public class K6WeaverService {
     }
 
     public String createK6Script() {
-        Set<String> endPointSet = ControllerScanner.fetchEndPoints();
+        List<Endpoint> endPointSet = ControllerScanner.fetchEndPoints();
         String baseUrl = k6WeaverConfigProperties.getBaseUrl();
         if (baseUrl.endsWith("/")) {
             baseUrl = baseUrl.substring(0, baseUrl.length() - 1);
