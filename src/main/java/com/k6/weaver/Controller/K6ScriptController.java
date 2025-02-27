@@ -16,6 +16,7 @@ public class K6ScriptController {
         this.k6WeaverService = k6WeaverService;
     }
 
+    // 일단 다운로드 기능만 넣고 디벨롭 해야함.
     @GetMapping("/gen-script")
     @K6Ignore
     public ResponseEntity<String> generateK6Script() {
