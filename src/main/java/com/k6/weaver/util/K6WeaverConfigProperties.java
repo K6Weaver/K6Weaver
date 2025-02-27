@@ -6,10 +6,9 @@ import org.springframework.stereotype.Component;
 @Component
 @ConfigurationProperties(prefix = "k6.weaver")
 public class K6WeaverConfigProperties {
-    private String basePackage = "com.example.demo";  // 기본값 설정
+    private String basePackage = "com.example.demo";
     private String baseUrl = "http://localhost:8080";
 
-    // Getter & Setter
     public String getBasePackage() {
         return basePackage;
     }
