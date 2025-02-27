@@ -1,7 +1,10 @@
 package com.k6.weaver.service;
 
 public class EndPoint implements Comparable<EndPoint> {
-    private String url, reqMethod, packagePath;
+    private String url;
+    private String reqMethod;
+    private String packagePath;
+    private String payloadName;
 
     public EndPoint(String url, String reqMethod, String packagePath) {
         this.url = url;
@@ -42,5 +45,13 @@ public class EndPoint implements Comparable<EndPoint> {
 
     public void setPackagePath(String packagePath) {
         this.packagePath = packagePath;
+    }
+
+    public String getPayloadName() {
+        return payloadName;
+    }
+
+    public void setPayloadName(String payloadName) {
+        this.payloadName = payloadName;
     }
 }

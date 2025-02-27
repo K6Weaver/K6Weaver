@@ -13,7 +13,6 @@ public class K6ScriptGenerator {
         k6Script.append("import { check, sleep } from 'k6';\n\n");
         k6Script.append("// Here write your base URL\n");
         k6Script.append("const baseUrl = '").append(baseUrl).append("';").append("\n");
-
         k6Script.append("export let options = {\n" +
                 "  stages: [\n" +
                 "    { duration: \"1m\", target: 50 },\n" +
@@ -23,12 +22,44 @@ public class K6ScriptGenerator {
                 "};").append("\n");
 
         k6Script.append("export default function () {\n");
+
+        for (EndPoint endPoint : endPointSet) {
+            if (endPoint.getReqMethod().equals("GET") || endPoint.getReqMethod().equals("DELETE")) {
+                continue;
+            }
+            String[] splitUrl = endPoint.getUrl().split("/");
+            String payloadName = "";
+            boolean isFirstWord = true;
+
+            for (String urlPattern : splitUrl) {
+                if (urlPattern.isBlank() || urlPattern.toLowerCase().startsWith("api") || isVersion(urlPattern)) {
+                    continue;
+                }
+
+                urlPattern = urlPattern.replace("{", "");
+                urlPattern = urlPattern.replace("}", "");
+                urlPattern = urlPattern.replace("-", "");
+                urlPattern = urlPattern.replace(" ", "");
+                if (isFirstWord) {
+                    payloadName += urlPattern;
+                    isFirstWord = false;
+                } else {
+                    payloadName += urlPattern.substring(0, 1).toUpperCase() + urlPattern.substring(1);
+                }
+            }
+
+            if (payloadName.isBlank()) {
+                payloadName = "api";
+            }
+            endPoint.setPayloadName(payloadName);
+            k6Script.append("   let " + payloadName + "Payload = /* Body를 추가해 주세요 */ null;\n");
+        }
+
         k6Script.append("   let params = {\n" +
                 "           headers: {\n" +
                 "               'Content-Type': 'application/json',\n" +
                 "           },\n" +
                 "       };\n");
-
         k6Script.append("let res;\n");
 
         for (EndPoint endpoint : endPointSet) {
@@ -41,20 +72,30 @@ public class K6ScriptGenerator {
             if (endpoint.getReqMethod().equals("GET")) {
                 k6Script.append("    res = http.get(`${baseUrl}").append(endpoint.getUrl()).append("`);\n");
                 k6Script.append("    check(res, { 'status was 200': (r) => r.status == 200 });\n");
-            } else if (endpoint.getReqMethod().equals("POST")) {
-                k6Script.append("    res = http.post(`${baseUrl}").append(endpoint.getUrl()).append("`, , params);\n");
-                k6Script.append("    check(res, { 'status was 201': (r) => r.status == 201 });\n");
-            } else if (endpoint.getReqMethod().equals("PUT")) {
-                k6Script.append("    res = http.put(`${baseUrl}").append(endpoint.getUrl()).append("`, , params);\n");
-                k6Script.append("    check(res, { 'status was 201': (r) => r.status == 201 });\n");
             } else if (endpoint.getReqMethod().equals("DELETE")) {
                 k6Script.append("    res = http.delete(`${baseUrl}").append(endpoint.getUrl()).append("`);\n");
                 k6Script.append("    check(res, { 'status was 200': (r) => r.status == 200 });\n");
+            } else if (endpoint.getReqMethod().equals("POST")) {
+                k6Script.append("    res = http.put(`${baseUrl}").append(endpoint.getUrl())
+                        .append("`,").append(endpoint.getPayloadName()).append(", params);\n");
+                k6Script.append("    check(res, { 'status was 201': (r) => r.status == 201 });\n");
+            } else if (endpoint.getReqMethod().equals("PUT")) {
+                k6Script.append("    res = http.put(`${baseUrl}").append(endpoint.getUrl())
+                        .append("`,").append(endpoint.getPayloadName()).append(", params);\n");
+                k6Script.append("    check(res, { 'status was 201': (r) => r.status == 201 });\n");
             }
         }
 
         k6Script.append("    sleep(1);").append("\n");
         k6Script.append("}\n");
         return k6Script.toString();
+    }
+
+    private static boolean isVersion(String urlPattern) {
+        if (urlPattern.length() >= 2 && (urlPattern.startsWith("v") || urlPattern.startsWith("V")) &&
+                Character.isDigit(urlPattern.charAt(1))) {
+            return true;
+        }
+        return false;
     }
 }
