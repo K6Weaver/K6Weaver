@@ -1,11 +1,11 @@
 package com.k6.weaver.generator;
 
-import com.k6.weaver.Service.Endpoint;
+import com.k6.weaver.service.EndPoint;
 
 import java.util.List;
 
 public class K6ScriptGenerator {
-    public static String generateScript(List<Endpoint> endPointSet, String baseUrl) {
+    public static String generateScript(List<EndPoint> endPointSet, String baseUrl) {
         StringBuilder k6Script = new StringBuilder();
         String beforePackage = "";
 
@@ -31,7 +31,7 @@ public class K6ScriptGenerator {
 
         k6Script.append("let res;\n");
 
-        for (Endpoint endpoint : endPointSet) {
+        for (EndPoint endpoint : endPointSet) {
 
             if (!beforePackage.equals(endpoint.getPackagePath())) {
                 beforePackage = endpoint.getPackagePath();

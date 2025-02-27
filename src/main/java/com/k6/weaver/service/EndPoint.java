@@ -1,16 +1,16 @@
-package com.k6.weaver.Service;
+package com.k6.weaver.service;
 
-public class Endpoint implements Comparable<Endpoint> {
+public class EndPoint implements Comparable<EndPoint> {
     private String url, reqMethod, packagePath;
 
-    public Endpoint(String url, String reqMethod, String packagePath) {
+    public EndPoint(String url, String reqMethod, String packagePath) {
         this.url = url;
         this.reqMethod = reqMethod;
         this.packagePath = packagePath;
     }
 
     @Override
-    public int compareTo(Endpoint o) {
+    public int compareTo(EndPoint o) {
         if (packagePath.equals(o.getPackagePath())) {
             if (reqMethod.equals(o.getReqMethod())) {
                 return url.compareTo(o.url);

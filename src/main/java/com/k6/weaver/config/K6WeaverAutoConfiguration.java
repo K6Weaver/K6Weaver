@@ -1,7 +1,7 @@
 package com.k6.weaver.config;
 
-import com.k6.weaver.Controller.K6ScriptController;
-import com.k6.weaver.Service.K6WeaverService;
+import com.k6.weaver.controller.K6ScriptController;
+import com.k6.weaver.service.K6WeaverService;
 import com.k6.weaver.generator.ControllerScanner;
 import com.k6.weaver.util.K6WeaverConfigProperties;
 import org.springframework.boot.autoconfigure.AutoConfiguration;
