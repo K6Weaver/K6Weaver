@@ -44,7 +44,6 @@ out/
 .LSOverride
 
 # Gradle Wrapper 관련 파일 무시
-weaver/gradle/wrapper/gradle-wrapper.jar
 weaver/gradlew
 weaver/gradlew.bat
 
