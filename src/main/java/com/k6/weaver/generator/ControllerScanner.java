@@ -1,22 +1,19 @@
 package com.k6.weaver.generator;
 
 import com.k6.weaver.config.annotation.K6Ignore;
-import com.k6.weaver.Service.Endpoint;
+import com.k6.weaver.service.EndPoint;
 import com.k6.weaver.util.K6WeaverConfigProperties;
 import jakarta.annotation.PostConstruct;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.lang.reflect.Method;
 import java.util.*;
 
 @Component
 public class ControllerScanner {
-    private static final List<Endpoint> endPoints = new ArrayList<>();
+    private static final List<EndPoint> END_POINTS = new ArrayList<>();
     private final ApplicationContext applicationContext;
     private final K6WeaverConfigProperties k6WeaverConfigProperties;
 
@@ -45,38 +42,22 @@ public class ControllerScanner {
             }
             Method[] methods = controllerClass.getDeclaredMethods();
             for (Method method : methods) {
-
-                if (!method.isAnnotationPresent(K6Ignore.class)) {
-                    Endpoint targetEndPoint = null;
-                    if (method.isAnnotationPresent(GetMapping.class)) {
-
-                        String fullEndPoint = baseEndPoint;
-                        String[] urlValues = method.getAnnotation(GetMapping.class).value();
-                        if (urlValues.length > 0) {
-                            fullEndPoint += endPointFormatter(urlValues[0]);
-                        }
-
-                        targetEndPoint = new Endpoint(fullEndPoint, "GET", controllerPackage);
-                    } else if (method.isAnnotationPresent(PostMapping.class)) {
-                        String fullEndPoint = baseEndPoint;
-                        String[] urlValues = method.getAnnotation(PostMapping.class).value();
-                        if (urlValues.length > 0) {
-                            fullEndPoint += endPointFormatter(urlValues[0]);
-                        }
-                        targetEndPoint = new Endpoint(fullEndPoint, "POST", controllerPackage);
-                    }
-                    if (targetEndPoint == null) {
-                        continue;
-                    }
-                    endPoints.add(targetEndPoint);
+                if (method.isAnnotationPresent(K6Ignore.class)) {
+                    continue;
                 }
+
+                EndPoint targetEndPoint = getTargetEndPoint(method, baseEndPoint, controllerPackage);
+                if (targetEndPoint == null) {
+                    continue;
+                }
+                END_POINTS.add(targetEndPoint);
             }
         }
     }
 
-    public static List<Endpoint> fetchEndPoints() {
-        Collections.sort(endPoints);
-        return endPoints;
+    public static List<EndPoint> fetchEndPoints() {
+        Collections.sort(END_POINTS);
+        return END_POINTS;
     }
 
     private String endPointFormatter(String endPoint) {
@@ -87,5 +68,33 @@ public class ControllerScanner {
             endPoint = endPoint.substring(0, endPoint.length() - 1);
         }
         return endPoint;
+    }
+
+    private EndPoint getTargetEndPoint(Method method, String baseEndPoint, String controllerPackage) {
+        // Get, Post, Put, Delete 방식에 따라 EndPoint 생성
+        EndPoint targetEndPoint = null;
+        if (method.isAnnotationPresent(GetMapping.class)) {
+            targetEndPoint = generateTargetEndPoint(baseEndPoint,
+                    method.getAnnotation(GetMapping.class).value(), "GET", controllerPackage);
+        } else if (method.isAnnotationPresent(PostMapping.class)) {
+            targetEndPoint = generateTargetEndPoint(baseEndPoint,
+                    method.getAnnotation(PostMapping.class).value(), "POST", controllerPackage);
+        } else if (method.isAnnotationPresent(PutMapping.class)) {
+            targetEndPoint = generateTargetEndPoint(baseEndPoint,
+                    method.getAnnotation(PutMapping.class).value(), "PUT", controllerPackage);
+        } else if (method.isAnnotationPresent(DeleteMapping.class)) {
+            targetEndPoint = generateTargetEndPoint(baseEndPoint,
+                    method.getAnnotation(DeleteMapping.class).value(), "DELETE", controllerPackage);
+        }
+        return targetEndPoint;
+    }
+
+    private EndPoint generateTargetEndPoint(String baseEndPoint, String[] urlValues,
+                                            String requestMethod, String controllerPackage) {
+        String fullEndPoint = baseEndPoint;
+        if (urlValues.length > 0) {
+            fullEndPoint += endPointFormatter(urlValues[0]);
+        }
+        return new EndPoint(fullEndPoint, requestMethod, controllerPackage);
     }
 }

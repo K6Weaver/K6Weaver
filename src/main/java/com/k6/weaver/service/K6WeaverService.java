@@ -1,4 +1,4 @@
-package com.k6.weaver.Service;
+package com.k6.weaver.service;
 
 import com.k6.weaver.generator.ControllerScanner;
 import com.k6.weaver.generator.K6ScriptGenerator;
@@ -16,7 +16,7 @@ public class K6WeaverService {
     }
 
     public String createK6Script() {
-        List<Endpoint> endPointSet = ControllerScanner.fetchEndPoints();
+        List<EndPoint> endPointSet = ControllerScanner.fetchEndPoints();
         String baseUrl = k6WeaverConfigProperties.getBaseUrl();
         if (baseUrl.endsWith("/")) {
             baseUrl = baseUrl.substring(0, baseUrl.length() - 1);

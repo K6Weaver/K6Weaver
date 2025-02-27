@@ -1,6 +1,6 @@
-package com.k6.weaver.Controller;
+package com.k6.weaver.controller;
 
-import com.k6.weaver.Service.K6WeaverService;
+import com.k6.weaver.service.K6WeaverService;
 import com.k6.weaver.config.annotation.K6Ignore;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
