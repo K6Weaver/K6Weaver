@@ -1,0 +1,82 @@
+plugins {
+	id 'java'
+	id 'maven-publish'
+	id 'org.springframework.boot' version '3.4.3'
+	id 'io.spring.dependency-management' version '1.1.7'
+	id 'com.github.johnrengelman.shadow' version '7.0.0'
+	id "com.vanniktech.maven.publish" version "0.28.0"
+}
+
+group = 'com.k6'
+version = '1.0.0-BETA'
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(17)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-web:3.4.0'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.0'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1' // JSON 변환용
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.0'
+}
+
+jar{
+	enabled=true
+	archiveClassifier = ''
+	finalizedBy shadowJar  // shadowJar Task 실행
+}
+
+shadowJar {
+	archiveBaseName.set('k6-weaver')  // JAR 파일의 기본 이름
+	archiveVersion.set('1.0.0')       // JAR 파일 버전
+	mergeServiceFiles()               // 서비스 파일 병합 (필요시)
+}
+
+import com.vanniktech.maven.publish.SonatypeHost
+mavenPublishing {
+	publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+	coordinates("io.github.kobenlys", "K6Weaver", "0.0.1") // 네임 스페이스, 라이브러리 이름, 버전 순서로 작성
+	signAllPublications()
+	pom {
+		name = "K6Weaver"
+		description = "Script auto-generation library to make using K6 easier"
+		url = "https://github.com/kobenlys/K6Weaver"
+
+		licenses {
+			license {
+				name = "Apache License, Version 2.0"
+				url = "https://github.com/kobenlys/K6Weaver/blob/main/LICENSE"
+			}
+		}
+
+		developers {
+			developer {
+				id = "kobenlys"
+				name = "YoungSeok Lee"
+				email = "kobenlys@gmail.com"
+			}
+			developer {
+				id = "haazz"
+				name = "JiWon Ha"
+				email = "gkwldnjs121@gmail.com"
+			}
+		}
+
+		scm {
+			connection = "scm:git:github.com/kobenlys/K6Weaver.git"
+			developerConnection = "scm:git:ssh://github.com:kobenlys/K6Weaver.git"
+			url = "https://github.com/kobenlys/K6Weaver/tree/main"
+		}
+	}
+}
+
+tasks.named('test') {
+	useJUnitPlatform()
+}
