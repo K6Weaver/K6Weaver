@@ -42,8 +42,8 @@ dependencies {
 
 #### application.properties
 ```properties
-k6.weaver.base-url=http://localhost:8080
-k6.weaver.base-package=com.ssafy.org
+k6.weaver.base-url=http://localhost:8080 // 테스트 할 base-url
+k6.weaver.base-package=com.ssafy.org // 프로젝트 패키지 경로
 ```
 #### application.yml
 ```yml
