@@ -3,7 +3,7 @@
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.kobenlys/K6Weaver)](https://central.sonatype.com/artifact/io.github.kobenlys/K6Weaver)
 [![License](https://img.shields.io/github/license/kobenlys/K6Weaver)](LICENSE)
 
-#### 🎯 K6Weaver는 K6 부하 테스트 스크립트를 자동 생성하는 Spring Boot 라이브러리입니다!
+#### 🎯 K6Weaver는 K6 부하 테스트 스크립트를 자동 생성하는 Spring Boot 오픈소스 라이브러리입니다!
 - 자동화된 K6 스크립트 생성으로 REST API 성능 테스트를 손쉽게 수행하세요.
 - 컨트롤러를 분석하여 K6 부하 테스트 코드를 자동으로 생성합니다.
 
