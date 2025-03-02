@@ -25,7 +25,7 @@
 #### **Gradle**
 ```properties
 dependencies {
-    implementation 'io.github.kobenlys:K6Weaver:1.0.0-BETA'
+    implementation 'io.github.kobenlys:K6Weaver:1.0.1-BETA'
 }
 ```
 #### **Maven**
@@ -33,11 +33,11 @@ dependencies {
 <dependency>
     <groupId>io.github.kobenlys</groupId>
     <artifactId>K6Weaver</artifactId>
-    <version>1.0.0-BETA</version>
+    <version>1.0.1-BETA</version>
 </dependency>
 ```
 
-### application.properties, application.yml 파일 설정
+### 🔗 application.properties, application.yml 파일 설정
 - 아래와 같이 application.properties 또는 application.yml 파일을 설정하세요.
 
 #### application.properties
@@ -70,6 +70,7 @@ public ApiResponse<List<ProductListResponse>> selectAllProduct(@PathVariable("st
 
 ### 2️⃣ API 요청으로 K6 테스트 스크립트 자동 생성
 - http://localhost:8080/k6/gen-script 엔드포인트로 GET 요청을 보내면, 자동으로 K6 테스트 코드가 생성됩니다.
+- 생성된 스크립트에서 PathVariable과 Parameter, Payload 를 테스트 시나리오에 맞게 수정하여 사용하세요. ✨
 
 ✅ **요청 예시** <br>
 ![image](https://github.com/user-attachments/assets/1c9f425a-1bfe-41e9-b42b-d0acd4f4185d)
@@ -85,22 +86,42 @@ import { check, sleep } from 'k6';
 const baseUrl = 'http://localhost:8080';
 export let options = {
   stages: [
+    // Custom Test Scenario with ramp-up, peak load, and ramp-down!
     { duration: "1m", target: 50 },
     { duration: "2m", target: 100 },
     { duration: "1m", target: 0 },
   ],
 };
 export default function () {
+   // write body here! 
+   let mockModifyuserUserIdPayload = /* write body here! */ null;
+   let mockJoinuserPayload = /* write body here! */ null;
    let params = {
            headers: {
                'Content-Type': 'application/json',
            },
        };
-  // 여기에 api 테스트 대상 endpoint가 작성됩니다!!
-
 let res;
+
+/* ========== com.mockproject.org.controller ========== */
+    // Put method
+    res = http.put(`${baseUrl}/api/mock/modify-user/{userId}`,mockModifyuserUserIdPayload, params);
+    check(res, { 'status was 2xx': (r) => r.status >= 200 && r.status < 300 });
+
+    // Post method
+    res = http.post(`${baseUrl}/api/mock/join-user`,mockJoinuserPayload, params);
+    check(res, { 'status was 2xx': (r) => r.status >= 200 && r.status < 300 });
+
+    // Get method
+    res = http.get(`${baseUrl}/api/mock/search-user`);
+    check(res, { 'status was 2xx': (r) => r.status >= 200 && r.status < 300 });
+
+    // Delete method
+    res = http.del(`${baseUrl}/api/mock/delete-user`);
+    check(res, { 'status was 2xx': (r) => r.status >= 200 && r.status < 300 });
     sleep(1);
 }
+
 ```
 
 ---
@@ -114,7 +135,7 @@ let res;
 ---
 ## 📄 라이선스
 이 프로젝트는 Apache 2.0 라이선스를 따릅니다. 📝
-
+- [25-03-02]
 
 
 
