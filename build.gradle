@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'com.k6'
-version = '1.0.0-BETA'
+version = '1.0.1-BETA'
 
 java {
 	toolchain {
@@ -23,7 +23,7 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web:3.4.0'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test:3.4.0'
-	implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1' // JSON 변환용
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.16.1'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.10.0'
 }
 
@@ -34,15 +34,15 @@ jar{
 }
 
 shadowJar {
-	archiveBaseName.set('k6-weaver')  // JAR 파일의 기본 이름
-	archiveVersion.set('1.0.0')       // JAR 파일 버전
-	mergeServiceFiles()               // 서비스 파일 병합 (필요시)
+	archiveBaseName.set('k6-weaver')
+	archiveVersion.set('1.0.1')
+	mergeServiceFiles()
 }
 
 import com.vanniktech.maven.publish.SonatypeHost
 mavenPublishing {
 	publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
-	coordinates("io.github.kobenlys", "K6Weaver", "0.0.1") // 네임 스페이스, 라이브러리 이름, 버전 순서로 작성
+	coordinates("io.github.kobenlys", "K6Weaver", "1.0.1-BETA") // 네임 스페이스, 라이브러리 이름, 버전 순서로 작성
 	signAllPublications()
 	pom {
 		name = "K6Weaver"
