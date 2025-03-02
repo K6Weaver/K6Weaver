@@ -51,8 +51,9 @@ public class K6ScriptGenerator {
             if (payloadName.isBlank()) {
                 payloadName = "api";
             }
+            payloadName += "Payload";
             endPoint.setPayloadName(payloadName);
-            k6Script.append("   let " + payloadName + "Payload = /* write body here! */ null;\n");
+            k6Script.append("   let " + payloadName + " = /* write body here! */ null;\n");
         }
 
         k6Script.append("   let params = {\n" +
@@ -73,10 +74,10 @@ public class K6ScriptGenerator {
                 k6Script.append("    res = http.get(`${baseUrl}").append(endpoint.getUrl()).append("`);\n");
                 k6Script.append("    check(res, { 'status was 200': (r) => r.status == 200 });\n");
             } else if (endpoint.getReqMethod().equals("DELETE")) {
-                k6Script.append("    res = http.delete(`${baseUrl}").append(endpoint.getUrl()).append("`);\n");
+                k6Script.append("    res = http.del(`${baseUrl}").append(endpoint.getUrl()).append("`);\n");
                 k6Script.append("    check(res, { 'status was 200': (r) => r.status == 200 });\n");
             } else if (endpoint.getReqMethod().equals("POST")) {
-                k6Script.append("    res = http.put(`${baseUrl}").append(endpoint.getUrl())
+                k6Script.append("    res = http.post(`${baseUrl}").append(endpoint.getUrl())
                         .append("`,").append(endpoint.getPayloadName()).append(", params);\n");
                 k6Script.append("    check(res, { 'status was 201': (r) => r.status == 201 });\n");
             } else if (endpoint.getReqMethod().equals("PUT")) {
