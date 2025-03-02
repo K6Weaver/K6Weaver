@@ -70,7 +70,7 @@ public ApiResponse<List<ProductListResponse>> selectAllProduct(@PathVariable("st
 
 ### 2️⃣ API 요청으로 K6 테스트 스크립트 자동 생성
 - http://localhost:8080/k6/gen-script 엔드포인트로 GET 요청을 보내면, 자동으로 K6 테스트 코드가 생성됩니다.
-- 생성된 스크립트에서 PathVariable과 Parameter, Payload 를 테스트 시나리오에 맞게 수정하여 사용하세요. ✨
+- 생성된 스크립트에서 **PathVariable**과 **Parameter, Payload** 를 테스트 시나리오에 맞게 수정하여 사용하세요. ✨
 
 ✅ **요청 예시** <br>
 ![image](https://github.com/user-attachments/assets/1c9f425a-1bfe-41e9-b42b-d0acd4f4185d)
