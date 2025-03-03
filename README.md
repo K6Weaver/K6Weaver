@@ -84,6 +84,7 @@ import { check, sleep } from 'k6';
 
 // Here write your base URL
 const baseUrl = 'http://localhost:8080';
+
 export let options = {
   stages: [
     // Custom Test Scenario with ramp-up, peak load, and ramp-down!
@@ -92,6 +93,7 @@ export let options = {
     { duration: "1m", target: 0 },
   ],
 };
+
 export default function () {
    // write body here! 
    let mockModifyuserUserIdPayload = /* write body here! */ null;
@@ -101,9 +103,9 @@ export default function () {
                'Content-Type': 'application/json',
            },
        };
-let res;
+    let res;
 
-/* ========== com.mockproject.org.controller ========== */
+    /* ========== com.mockproject.org.controller ========== */
     // Put method
     res = http.put(`${baseUrl}/api/mock/modify-user/{userId}`,mockModifyuserUserIdPayload, params);
     check(res, { 'status was 2xx': (r) => r.status >= 200 && r.status < 300 });
