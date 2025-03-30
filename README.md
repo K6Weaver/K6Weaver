@@ -7,7 +7,8 @@
 - 자동화된 K6 스크립트 생성으로 REST API 성능 테스트를 손쉽게 수행하세요.
 - 컨트롤러를 분석하여 K6 부하 테스트 코드를 자동으로 생성합니다.
 
-[Maven Central Repository - 상세 정보](https://central.sonatype.com/artifact/io.github.kobenlys/K6Weaver)
+✅ [Maven Central Repository - 상세 정보](https://central.sonatype.com/artifact/io.github.kobenlys/K6Weaver) <br>
+✅ [Maven Repository - 상세 정보](https://mvnrepository.com/artifact/io.github.kobenlys/K6Weaver)
 
 ---
 
