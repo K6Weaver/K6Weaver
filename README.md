@@ -127,13 +127,22 @@ export default function () {
 
 ```
 
+--- 
+## ✨ 기여자들
+
+Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/docs/en/emoji-key)):
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
+This project follows the [all-contributors](https://allcontributors.org) specification.
+
 ---
 ## 🏆 기여 방법
 
 1️⃣ 이 프로젝트가 마음에 든다면 ⭐ Star를 눌러주세요! <br>
 2️⃣ 버그나 개선 사항을 발견하셨다면 이슈(issue) 를 등록해 주세요.<br>
 3️⃣ 직접 기여하고 싶다면 Fork 후 PR을 보내 주세요!<br>
-
 
 ---
 ## 📄 라이선스
