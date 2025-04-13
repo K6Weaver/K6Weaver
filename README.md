@@ -136,6 +136,7 @@ export default function () {
   <tbody>
     <tr>
       <td align="center" valign="top" width="16.66%"><a href="https://github.com/kobenlys"><img src="https://avatars.githubusercontent.com/u/149328708?v=4?s=100" width="100px;" alt="영석"/><br /><sub><b>영석</b></sub></a><br /><a href="https://github.com/kobenlys/K6Weaver/commits?author=kobenlys" title="Code">💻</a></td>
+      <td align="center" valign="top" width="16.66%"><a href="https://github.com/cod0216"><img src="https://avatars.githubusercontent.com/u/83526046?v=4?s=100" width="100px;" alt="cod0216"/><br /><sub><b>cod0216</b></sub></a><br /><a href="https://github.com/kobenlys/K6Weaver/commits?author=cod0216" title="Code">💻</a></td>
     </tr>
   </tbody>
 </table>
