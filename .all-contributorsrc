@@ -1,1 +1,12 @@
-npx all-contributors init
+{
+  "projectName": "K6Weaver",
+  "projectOwner": "kobenlys",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "contributors": [],
+  "contributorsPerLine": 6
+}
