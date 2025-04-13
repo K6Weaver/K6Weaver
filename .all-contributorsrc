@@ -7,7 +7,17 @@
     "README.md"
   ],
   "imageSize": 100,
-  "contributors": [],
+  "contributors": [
+    {
+      "login": "kobenlys",
+      "name": "영석",
+      "avatar_url": "https://avatars.githubusercontent.com/u/149328708?v=4",
+      "profile": "https://github.com/kobenlys",
+      "contributions": [
+        "code"
+      ]
+    }
+  ],
   "contributorsPerLine": 6,
   "commitType": "docs",
   "commitConvention": "angular"
