@@ -132,6 +132,13 @@ export default function () {
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="16.66%"><a href="https://github.com/kobenlys"><img src="https://avatars.githubusercontent.com/u/149328708?v=4?s=100" width="100px;" alt="영석"/><br /><sub><b>영석</b></sub></a><br /><a href="https://github.com/kobenlys/K6Weaver/commits?author=kobenlys" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
