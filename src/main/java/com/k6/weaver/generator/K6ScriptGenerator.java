@@ -56,9 +56,11 @@ public class K6ScriptGenerator {
             k6Script.append("   let " + payloadName + " = /* write body here! */ null;\n");
         }
 
+        k6Script.append("const token = 'your_token_here';\n");
         k6Script.append("   let params = {\n" +
                 "           headers: {\n" +
                 "               'Content-Type': 'application/json',\n" +
+                "               // 'Authorization': `Bearer ${token}`,\n" +
                 "           },\n" +
                 "       };\n");
         k6Script.append("let res;\n");
