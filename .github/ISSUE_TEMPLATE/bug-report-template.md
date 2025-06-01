@@ -1,8 +1,8 @@
 ---
-name: bug-report-template
-about: 해당 탬플릿을 이용해서 버그를 신고해주세요.
-title: [BUG] 버그 제목
-labels: bug
+name: Bug-report-template
+about: 해당 탬플릿을 이용해서 버그를 신고해 주세요.
+title: '[BUG] 버그제목'
+labels: 'Bug'
 assignees: ''
 
 ---
