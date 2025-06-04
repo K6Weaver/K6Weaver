@@ -8,7 +8,7 @@
 - 컨트롤러를 분석하여 K6 부하 테스트 코드를 자동으로 생성합니다.
 
 ✅ [Maven Central Repository - 상세 정보](https://central.sonatype.com/artifact/io.github.kobenlys/K6Weaver) <br>
-✅ [Maven Repository - 상세 정보](https://mvnrepository.com/artifact/io.github.kobenlys/K6Weaver)
+✅ [Maven Repository - 상세 정보](https://mvnrepository.com/artifact/io.github.kobenlys/K6Weaver) <br>
 
 ---
 
@@ -16,6 +16,8 @@
 ✅ **Spring Boot 컨트롤러 스캔** 후 자동으로 K6 테스트 스크립트 생성<br>
 ✅ **REST API** 기반 부하 테스트를 위한 손쉬운 설정
 
+### **🧐자세히 알아보기**
+📃 [K6Weaver - 웹 문서](https://k6weaver-docs.vercel.app/)
 
 ---
 
