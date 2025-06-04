@@ -153,7 +153,7 @@ export default function () {
 
 ## 🌐 Available Languages
 
-- [한국어 (Korean)](README_ko.md)
+- [한국어 (Korean)](i18n/README_ko.md)
 
 ---
 
